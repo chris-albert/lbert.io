@@ -1,0 +1,55 @@
+body {
+    background-image: url("./images/blackwood3.jpg");
+    color: white;
+}
+
+.center {
+    text-align: center;
+}
+
+.profile-pic {
+    height: 200px;
+    width: 200px;
+    border: 2px solid black;
+}
+
+.description-row {
+    margin-top:30px;
+}
+
+/*Parallax scroll styles*/
+
+.parallax {
+    perspective: 1px;
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.parallax__layer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+.parallax__layer--base {
+    transform: translateZ(0);
+}
+.parallax__layer--back {
+    transform: translateZ(-1px) scale(2);
+}
+
+.parallax__group {
+    position: relative;
+    height: 100vh;
+    transform-style: preserve-3d;
+}
+
+.group1 .parallax__layer--base {
+    background: blue;
+    height: 50vh;
+}
+
+.group1 .parallax__layer--back {
+    background: red;
+}
