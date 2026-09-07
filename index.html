@@ -244,7 +244,7 @@
   </main>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1200,&quot;height&quot;:900},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;dark&quot;,&quot;options&quot;:[&quot;dark&quot;,&quot;light&quot;],&quot;tsType&quot;:&quot;\&quot;dark\&quot; | \&quot;light\&quot;&quot;,&quot;section&quot;:&quot;Appearance&quot;},&quot;featuredCount&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:8,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:3,&quot;max&quot;:8,&quot;section&quot;:&quot;Content&quot;},&quot;showAvailability&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Content&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1200,&quot;height&quot;:900},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;dark&quot;,&quot;options&quot;:[&quot;dark&quot;,&quot;light&quot;],&quot;tsType&quot;:&quot;\&quot;dark\&quot; | \&quot;light\&quot;&quot;,&quot;section&quot;:&quot;Appearance&quot;},&quot;featuredCount&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:9,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:3,&quot;max&quot;:9,&quot;section&quot;:&quot;Content&quot;},&quot;showAvailability&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Content&quot;}}">
 const RESUME = {
   name: "Chris Albert",
   tagline: "Applying functional programming and TDD/DDD to create robust and scalable services.",
@@ -389,6 +389,7 @@ class Component extends DCLogic {
     const page = this.state.page;
     const gh = n => "https://github.com/chris-albert/" + n;
     const featured = [
+      { name: "infinite-drummer", lang: "Max · JavaScript", blurb: "Max for Live drum humanizer — per-instrument timing, velocity and chance so programmed drums sound played. Built for the Infinite Bits TR-8S rig.", img: "shots/infinite-drummer.png", url: gh("infinite-drummer"), site: "https://infinite-drummer.lbert.io/" },
       { name: "midi-structor", lang: "TypeScript", blurb: "Live-performance MIDI tooling for Ableton — Electron desktop app plus a web build.", img: "shots/midi-structor.png", url: gh("midi-structor") },
       { name: "staves", lang: "TypeScript", blurb: "Browser DAW for two musicians to record and arrange together in real time — IndexedDB storage, WebRTC sync over Yjs CRDTs.", img: "shots/staves.png", url: gh("staves"), site: "https://staves.lbert.io/" },
       { name: "lumidi", lang: "TypeScript · C++", blurb: "Drives a WS2812B LED strip from Ableton Live through a Teensy 4.0 running USB-MIDI firmware — Max for Live animation engine, plus a browser strip simulator.", img: "shots/lumidi.png", url: gh("lumidi"), site: "https://lumidi.lbert.io/" },
@@ -397,7 +398,7 @@ class Component extends DCLogic {
       { name: "geometric-background-generator", lang: "TypeScript", blurb: "Wallpaper generator for geometric tilings and fractals, with PNG, SVG and JPEG export.", img: "shots/background-generator.png", url: gh("geometric-background-generator"), site: "https://chris-albert.github.io/geometric-background-generator/" },
       { name: "cloud-amp", lang: "JavaScript", stars: "3", blurb: "Winamp for the cloud.", img: "shots/cloud-amp.png", url: gh("cloud-amp"), site: "https://cloudamp.io/" },
       { name: "infinitebitsband.com", lang: "TypeScript", blurb: "Site for Infinite Bits, an algorithmic band out of SF — static Next.js export served from S3.", img: "shots/infinitebits.png", url: gh("infinitebitsband.com"), site: "https://infinitebitsband.com/" }
-    ].slice(0, this.props.featuredCount ?? 8).map(p => ({
+    ].slice(0, this.props.featuredCount ?? 9).map(p => ({
       ...p, hasMeta: !!p.lang, hasStars: !!p.stars, url: p.url || null, noUrl: !p.url,
       img: p.img || null, imgCss: p.img ? "url(" + p.img + ")" : "none", noImg: !p.img, site: p.site || null
     }));
