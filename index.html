@@ -10,6 +10,7 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://lbert.io/">
 <script src="./support.js"></script>
+<script src="./resume-export.js"></script>
 </head>
 <body>
 <x-dc>
@@ -155,12 +156,21 @@
     <sc-if value="{{ isResume }}" hint-placeholder-val="{{ false }}">
       <div>
         <section style="padding: clamp(48px, 8vh, 84px) 0 clamp(32px, 5vh, 52px); border-bottom: 1px solid var(--line)">
-          <h1 style="font-size: clamp(34px, 5.6vw, 58px); line-height: 1.02; letter-spacing: -0.035em; font-weight: 500; margin: 0 0 18px">Chris Albert</h1>
-          <p style="font-size: clamp(16.5px, 2vw, 20px); line-height: 1.5; color: var(--muted); max-width: 52ch; margin: 0 0 24px; text-wrap: pretty">Applying functional programming and TDD/DDD to create robust and scalable services.</p>
+          <h1 style="font-size: clamp(34px, 5.6vw, 58px); line-height: 1.02; letter-spacing: -0.035em; font-weight: 500; margin: 0 0 18px">{{ resume.name }}</h1>
+          <p style="font-size: clamp(16.5px, 2vw, 20px); line-height: 1.5; color: var(--muted); max-width: 52ch; margin: 0 0 24px; text-wrap: pretty">{{ resume.tagline }}</p>
           <div style="display: flex; flex-wrap: wrap; gap: 20px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--dim)">
-            <a href="mailto:chris@lbert.io">chris@lbert.io</a>
-            <a href="https://github.com/chris-albert" target="_blank" rel="noreferrer">github.com/chris-albert</a>
+            <a href="mailto:{{ resume.email }}">{{ resume.email }}</a>
+            <a href="{{ resume.github }}" target="_blank" rel="noreferrer">github.com/chris-albert</a>
             <span>lbert.io</span>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 26px; font-family: 'JetBrains Mono', monospace; font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim)">
+            <span style="margin-right: 6px">Download</span>
+            <button type="button" onClick="{{ exportPdf }}" style="font-family: 'JetBrains Mono', monospace; font-size: 11.5px; letter-spacing: 0.02em; color: var(--muted); background: none; border: 1px solid var(--line); border-radius: 3px; padding: 6px 11px; cursor: pointer" style-hover="border-color: var(--accent); color: var(--accent)">{{ pdfLabel }}</button>
+            <button type="button" onClick="{{ exportDocx }}" style="font-family: 'JetBrains Mono', monospace; font-size: 11.5px; letter-spacing: 0.02em; color: var(--muted); background: none; border: 1px solid var(--line); border-radius: 3px; padding: 6px 11px; cursor: pointer" style-hover="border-color: var(--accent); color: var(--accent)">{{ docxLabel }}</button>
+            <button type="button" onClick="{{ exportMarkdown }}" style="font-family: 'JetBrains Mono', monospace; font-size: 11.5px; letter-spacing: 0.02em; color: var(--muted); background: none; border: 1px solid var(--line); border-radius: 3px; padding: 6px 11px; cursor: pointer" style-hover="border-color: var(--accent); color: var(--accent)">{{ markdownLabel }}</button>
+            <sc-if value="{{ exportError }}" hint-placeholder-val="{{ false }}">
+              <span style="text-transform: none; letter-spacing: 0; color: var(--accent)">{{ exportError }}</span>
+            </sc-if>
           </div>
         </section>
 
@@ -235,8 +245,121 @@
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1200,&quot;height&quot;:900},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;dark&quot;,&quot;options&quot;:[&quot;dark&quot;,&quot;light&quot;],&quot;tsType&quot;:&quot;\&quot;dark\&quot; | \&quot;light\&quot;&quot;,&quot;section&quot;:&quot;Appearance&quot;},&quot;featuredCount&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:8,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:3,&quot;max&quot;:8,&quot;section&quot;:&quot;Content&quot;},&quot;showAvailability&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Content&quot;}}">
+const RESUME = {
+  name: "Chris Albert",
+  tagline: "Applying functional programming and TDD/DDD to create robust and scalable services.",
+  email: "chris@lbert.io",
+  github: "https://github.com/chris-albert",
+  site: "https://lbert.io",
+  stack: [
+    { label: "Languages", items: "Scala · Java · TypeScript · JavaScript · Haskell" },
+    { label: "Functional", items: "Cats Effect · ZIO · Tagless Final · TDD/DDD" },
+    { label: "Cloud", items: "AWS · GCP · Terraform · Kubernetes" },
+    { label: "Front end", items: "React · Next.js · Ember.js" }
+  ],
+  education: [
+    { label: "AI Hero — AI Coding for Real Engineers", url: "https://www.aihero.dev/cohorts/ai-coding-for-real-engineers-m0k0w" },
+    { label: "Coursera — Functional Programming Principles in Scala" },
+    { label: "Coursera — Principles of Reactive Programming" },
+    { label: "Coursera — Architecting with Google Kubernetes Engine: Foundations" },
+    { label: "Cognitive — Domain Driven Design" },
+    { label: "Cognitive — CQRS/ES" }
+  ],
+  roles: [
+    {
+      dates: "2025 — Present",
+      role: "Staff Software Engineer",
+      company: "Writer",
+      bullets: [
+        "Built an internal agentic Slackbot used across engineering.",
+        "Built the data pipeline for all analytics events, primarily tracking token usage."
+      ],
+      tags: ["Agents", "Data pipelines", "Slack"]
+    },
+    {
+      dates: "2024 — 2025",
+      role: "Sr. Software Engineer",
+      company: "SiriusXM",
+      bullets: [
+        "Contributed to and rolled out a new In-Vehicle Message service serving notifications to all Teslas.",
+        "Owned features and maintenance on notification and reminder services.",
+        "Built a new pipeline to ingest data from Salesforce Marketing Cloud using Journey Builder."
+      ],
+      tags: ["Scala", "Notifications", "Data pipelines"]
+    },
+    {
+      dates: "2022 — 2024",
+      role: "Sr. Software Engineer",
+      company: "Disney Streaming Services",
+      bullets: [
+        "Key contributor migrating all Disney payments to a new microservice architecture.",
+        "Designed, implemented and rolled out ML inference infrastructure for payment optimizations.",
+        "Built the next-gen payments platform behind all Disney transactions (Cats Effect 3).",
+        "Added a new payment provider to support the Hulu payments migration (Cats Effect 2).",
+        "Created a payments optimization service to raise approval rates — React/TypeScript UI for product-authored rules, Cats Effect 3 backend executing them at runtime.",
+        "Built internal tooling for pipeline debugging and developer efficiency; moved CI/CD from Jenkins to GitHub Actions with Ops."
+      ],
+      tags: ["Cats Effect", "React/TypeScript", "DynamoDB", "SQS", "Kinesis", "EKS", "Terraform"]
+    },
+    {
+      dates: "2019 — 2022",
+      role: "Principal Software Engineer",
+      company: "Major League Baseball",
+      bullets: [
+        "Built the next-gen big data platform on Google Dataflow and BigTable.",
+        "Created a JSON meta-language to facilitate API interactions (ZIO 1).",
+        "Built and maintained Java REST microservices (Spring Boot) and architected the ActiveMQ infrastructure carrying all baseball data.",
+        "Shipped many Next.js/React TypeScript internal admin apps.",
+        "Helped migrate all services from AWS to GCP with Terraform."
+      ],
+      tags: ["ZIO", "Dataflow", "BigTable", "GKE", "Next.js", "Terraform"]
+    },
+    {
+      dates: "2017 — 2019",
+      role: "Sr. Software Engineer",
+      company: "Credit Karma",
+      bullets: [
+        "Built a model management application to help data scientists configure production models (Tagless Final, Cats Effect 2).",
+        "Maintained and upgraded the Akka actor application powering all of CK's predictions to Cats Effect 2.",
+        "Worked on the Finagle application computing and serving all of CK's user data (ZIO 1)."
+      ],
+      tags: ["Tagless Final", "Akka", "Finagle", "ZIO"]
+    },
+    {
+      dates: "2015 — 2017",
+      role: "Software Engineer",
+      company: "Ticketfly",
+      bullets: [
+        "Created a Play/Scala library for common controller patterns — auth and request/response handling.",
+        "Extracted and migrated authorization out of the monolith with Play/Scala, Slick and MySQL.",
+        "Co-instructed an internal Scala course; authored libraries for OAuth2 auth and health-check/diagnostics pages.",
+        "Built an Ember.js deploy pipeline (Jenkins/Rundeck/Slack/S3/CloudFront) and a Lambda reporting RabbitMQ stats to CloudWatch."
+      ],
+      tags: ["Play/Scala", "Slick", "MySQL", "RabbitMQ", "Ember.js"]
+    },
+    {
+      dates: "2011 — 2015",
+      role: "Software Engineer",
+      company: "Alexa Internet",
+      bullets: [
+        "Created the subscription and payment system on Play/Scala, MySQL and Slick; migrated from a homegrown system to Recurly.",
+        "Built a framework for grading website SEO and a highly configurable editorial tool framework in Ember.js.",
+        "Set up continuous integration with Jenkins and Git; added Play abstraction layers to speed future development."
+      ],
+      tags: ["Play/Scala", "Slick", "Ember.js", "Jenkins"]
+    },
+    {
+      dates: "2009 — 2011",
+      role: "Jr. Fullstack Software Engineer",
+      company: "PS|Ship",
+      bullets: ["Built a shipping application in a custom JavaScript framework."],
+      tags: ["JavaScript"]
+    }
+  ]
+};
+
 class Component extends DCLogic {
-  state = { page: "home", theme: null, at: false, copied: false };
+  state = { page: "home", theme: null, at: false, copied: false, exporting: null, exportError: null };
 
   componentDidMount() {
     let saved = null;
@@ -251,6 +374,14 @@ class Component extends DCLogic {
   setTheme(t) {
     this.setState({ theme: t });
     try { localStorage.setItem("lbertio-theme", t); } catch (e) {}
+  }
+
+  exportResume(format) {
+    if (this.state.exporting) return;
+    this.setState({ exporting: format, exportError: null });
+    window.ResumeExport.download(format, RESUME)
+      .catch(e => { console.error(e); this.setState({ exportError: "Export failed — please try again." }); })
+      .then(() => this.setState({ exporting: null }));
   }
 
   renderVals() {
@@ -291,111 +422,17 @@ class Component extends DCLogic {
         this.setState({ copied: true });
       },
       featured,
-      stack: [
-        { label: "Languages", items: "Scala · Java · TypeScript · JavaScript · Haskell" },
-        { label: "Functional", items: "Cats Effect · ZIO · Tagless Final · TDD/DDD" },
-        { label: "Cloud", items: "AWS · GCP · Terraform · Kubernetes" },
-        { label: "Front end", items: "React · Next.js · Ember.js" }
-      ],
-      education: [
-        { label: "AI Hero — AI Coding for Real Engineers", url: "https://www.aihero.dev/cohorts/ai-coding-for-real-engineers-m0k0w" },
-        { label: "Coursera — Functional Programming Principles in Scala" },
-        { label: "Coursera — Principles of Reactive Programming" },
-        { label: "Coursera — Architecting with Google Kubernetes Engine: Foundations" },
-        { label: "Cognitive — Domain Driven Design" },
-        { label: "Cognitive — CQRS/ES" }
-      ].map(e => ({ ...e, url: e.url || null, noUrl: !e.url })),
-      roles: [
-        {
-          dates: "2025 — Present",
-          role: "Staff Software Engineer",
-          company: "Writer",
-          bullets: [
-            "Built an internal agentic Slackbot used across engineering.",
-            "Built the data pipeline for all analytics events, primarily tracking token usage."
-          ],
-          tags: ["Agents", "Data pipelines", "Slack"]
-        },
-        {
-          dates: "2024 — 2025",
-          role: "Sr. Software Engineer",
-          company: "SiriusXM",
-          bullets: [
-            "Contributed to and rolled out a new In-Vehicle Message service serving notifications to all Teslas.",
-            "Owned features and maintenance on notification and reminder services.",
-            "Built a new pipeline to ingest data from Salesforce Marketing Cloud using Journey Builder."
-          ],
-          tags: ["Scala", "Notifications", "Data pipelines"]
-        },
-        {
-          dates: "2022 — 2024",
-          role: "Sr. Software Engineer",
-          company: "Disney Streaming Services",
-          bullets: [
-            "Key contributor migrating all Disney payments to a new microservice architecture.",
-            "Designed, implemented and rolled out ML inference infrastructure for payment optimizations.",
-            "Built the next-gen payments platform behind all Disney transactions (Cats Effect 3).",
-            "Added a new payment provider to support the Hulu payments migration (Cats Effect 2).",
-            "Created a payments optimization service to raise approval rates — React/TypeScript UI for product-authored rules, Cats Effect 3 backend executing them at runtime.",
-            "Built internal tooling for pipeline debugging and developer efficiency; moved CI/CD from Jenkins to GitHub Actions with Ops."
-          ],
-          tags: ["Cats Effect", "React/TypeScript", "DynamoDB", "SQS", "Kinesis", "EKS", "Terraform"]
-        },
-        {
-          dates: "2019 — 2022",
-          role: "Principal Software Engineer",
-          company: "Major League Baseball",
-          bullets: [
-            "Built the next-gen big data platform on Google Dataflow and BigTable.",
-            "Created a JSON meta-language to facilitate API interactions (ZIO 1).",
-            "Built and maintained Java REST microservices (Spring Boot) and architected the ActiveMQ infrastructure carrying all baseball data.",
-            "Shipped many Next.js/React TypeScript internal admin apps.",
-            "Helped migrate all services from AWS to GCP with Terraform."
-          ],
-          tags: ["ZIO", "Dataflow", "BigTable", "GKE", "Next.js", "Terraform"]
-        },
-        {
-          dates: "2017 — 2019",
-          role: "Sr. Software Engineer",
-          company: "Credit Karma",
-          bullets: [
-            "Built a model management application to help data scientists configure production models (Tagless Final, Cats Effect 2).",
-            "Maintained and upgraded the Akka actor application powering all of CK's predictions to Cats Effect 2.",
-            "Worked on the Finagle application computing and serving all of CK's user data (ZIO 1)."
-          ],
-          tags: ["Tagless Final", "Akka", "Finagle", "ZIO"]
-        },
-        {
-          dates: "2015 — 2017",
-          role: "Software Engineer",
-          company: "Ticketfly",
-          bullets: [
-            "Created a Play/Scala library for common controller patterns — auth and request/response handling.",
-            "Extracted and migrated authorization out of the monolith with Play/Scala, Slick and MySQL.",
-            "Co-instructed an internal Scala course; authored libraries for OAuth2 auth and health-check/diagnostics pages.",
-            "Built an Ember.js deploy pipeline (Jenkins/Rundeck/Slack/S3/CloudFront) and a Lambda reporting RabbitMQ stats to CloudWatch."
-          ],
-          tags: ["Play/Scala", "Slick", "MySQL", "RabbitMQ", "Ember.js"]
-        },
-        {
-          dates: "2011 — 2015",
-          role: "Software Engineer",
-          company: "Alexa Internet",
-          bullets: [
-            "Created the subscription and payment system on Play/Scala, MySQL and Slick; migrated from a homegrown system to Recurly.",
-            "Built a framework for grading website SEO and a highly configurable editorial tool framework in Ember.js.",
-            "Set up continuous integration with Jenkins and Git; added Play abstraction layers to speed future development."
-          ],
-          tags: ["Play/Scala", "Slick", "Ember.js", "Jenkins"]
-        },
-        {
-          dates: "2009 — 2011",
-          role: "Jr. Fullstack Software Engineer",
-          company: "PS|Ship",
-          bullets: ["Built a shipping application in a custom JavaScript framework."],
-          tags: ["JavaScript"]
-        }
-      ]
+      resume: RESUME,
+      exportPdf: () => this.exportResume("pdf"),
+      exportDocx: () => this.exportResume("docx"),
+      exportMarkdown: () => this.exportResume("md"),
+      pdfLabel: this.state.exporting === "pdf" ? "PDF …" : "PDF",
+      docxLabel: this.state.exporting === "docx" ? "DOCX …" : "DOCX",
+      markdownLabel: this.state.exporting === "md" ? "Markdown …" : "Markdown",
+      exportError: this.state.exportError,
+      stack: RESUME.stack,
+      education: RESUME.education.map(e => ({ ...e, url: e.url || null, noUrl: !e.url })),
+      roles: RESUME.roles
     };
   }
 }
