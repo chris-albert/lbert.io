@@ -44,6 +44,9 @@
   a { color: var(--accent); text-decoration: none; }
   a:hover { color: var(--fg); }
   ::selection { background: var(--accent); color: var(--onAccent); }
+  .hero { display: grid; grid-template-columns: minmax(0, 1fr) clamp(220px, 27vw, 320px); gap: clamp(28px, 6vw, 72px); align-items: center; }
+  .hero-photo { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 30%; display: block; border-radius: 6px; border: 1px solid var(--line); background: var(--panel); }
+  @media (max-width: 720px) { .hero { grid-template-columns: 1fr; } .hero-photo { max-width: 260px; } }
 </style>
 </helmet>
 <div data-theme="{{ theme }}" style="background-color: var(--bg); background-image: radial-gradient(760px 420px at 78% -6%, var(--glow), transparent 68%), radial-gradient(circle at 1px 1px, var(--dot) 1px, transparent 0), linear-gradient(var(--hair) 1px, transparent 1px), linear-gradient(90deg, var(--hair) 1px, transparent 1px); background-size: 100% 100%, 26px 26px, 104px 104px, 104px 104px; background-position: 0 0, 0 0, 0 0, 0 0; background-attachment: fixed, fixed, fixed, fixed; color: var(--fg); min-height: 100vh; padding: 0 clamp(20px, 5vw, 64px); transition: background-color 220ms ease, color 220ms ease">
@@ -64,6 +67,8 @@
     <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
       <div>
         <section style="padding: clamp(60px, 11vh, 118px) 0 clamp(52px, 8vh, 88px); border-bottom: 1px solid var(--line)">
+          <div class="hero">
+          <div>
           <sc-if value="{{ showAvailability }}" hint-placeholder-val="{{ true }}">
             <div style="display: inline-flex; align-items: center; gap: 9px; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--okText); border: 1px solid var(--okLine); border-radius: 999px; padding: 6px 13px; margin-bottom: 28px">
               <span style="width: 6px; height: 6px; border-radius: 999px; background: var(--ok)"></span>
@@ -71,7 +76,7 @@
             </div>
           </sc-if>
           <h1 style="font-size: clamp(40px, 8vw, 86px); line-height: 0.98; letter-spacing: -0.035em; font-weight: 500; margin: 0 0 26px; max-width: 16ch; text-wrap: balance">Chris Albert, software engineer.</h1>
-          <p style="font-size: clamp(17px, 2.1vw, 21px); line-height: 1.55; color: var(--muted); max-width: 54ch; margin: 0 0 34px; text-wrap: pretty">Functional programming and TDD/DDD applied to robust, scalable services — payments at Disney, data at MLB, notifications at SiriusXM. Now a staff engineer at Writer. Shipping since 2009; a few side projects below.</p>
+          <p style="font-size: clamp(17px, 2.1vw, 21px); line-height: 1.55; color: var(--muted); max-width: 54ch; margin: 0 0 34px; text-wrap: pretty">Functional programming and TDD/DDD applied to robust, scalable services — payments at Disney, data at MLB, notifications at SiriusXM. Now a staff engineer at Writer, building autonomous coding agents and the data platform underneath them. Shipping since 2009; a few side projects below.</p>
           <div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: center">
             <button type="button" onClick="{{ copyEmail }}" onMouseEnter="{{ atOn }}" onMouseLeave="{{ atOff }}" title="Click to copy" style="font-family: 'JetBrains Mono', monospace; font-size: clamp(15px, 2.2vw, 20px); padding: 13px 20px; border-radius: 4px; background: var(--accent); color: var(--onAccent); font-weight: 500; border: 0; cursor: pointer; letter-spacing: -0.01em; display: inline-flex; align-items: baseline; gap: 1px">
               <span>chris</span><span style="display: inline-block; min-width: 0.62em; text-align: center; transition: transform 180ms ease">{{ atGlyph }}</span><span>lbert.io</span>
@@ -80,6 +85,9 @@
             <a href="https://github.com/chris-albert" target="_blank" rel="noreferrer" style="font-family: 'JetBrains Mono', monospace; font-size: 13.5px; padding: 13px 20px; border-radius: 4px; border: 1px solid var(--line); color: var(--fg)" style-hover="border-color: var(--accent)">github.com/chris-albert</a>
           </div>
           <p style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--dim); margin: 16px 0 0">// the @ is the a in albert</p>
+          </div>
+          <img class="hero-photo" src="chris.jpg" alt="Chris Albert" width="1054" height="1400" />
+          </div>
         </section>
 
         <section style="padding: clamp(52px, 8vh, 88px) 0 0">
@@ -271,10 +279,13 @@ const RESUME = {
       role: "Staff Software Engineer",
       company: "Writer",
       bullets: [
-        "Built an internal agentic Slackbot used across engineering.",
-        "Built the data pipeline for all analytics events, primarily tracking token usage."
+        "Built Cosmo, Writer's autonomous coding-agent platform — a fleet of engineering, cloud, QA and incident agents reachable from Slack and a web UI, with durable memory (semantic search over past work), real-time streaming, incident auto-investigation and an end-to-end agentic code-review flow. The agents merged 885 PRs in six months, on top of the 600+ I shipped myself.",
+        "Instrumented the agents themselves — token usage, latency, satisfaction signals from Slack reactions, Grafana dashboards — and used the data to grow adoption across engineering and close the gap between agent and human merge rates.",
+        "Designed and shipped the Writer Data Platform end to end: Avro/JSON schema registry, Python and TypeScript SDKs, and a Pub/Sub → ClickHouse → dbt event pipeline rolled out to eight clusters across GCP and AWS with Pulumi, plus health-check observability and an agent that QA-validates the pipeline.",
+        "Owned correctness for the platform: root-caused silent data-loss bugs and led a blue/green ClickPipe migration that recovered ~161k dropped events, verifying every fix end to end against ClickHouse.",
+        "Delivered BYOK encryption key management — WorkOS vault flows, JS and Python SDKs, key rotation — and cut 500–900ms of latency by removing interactive transactions from hot paths."
       ],
-      tags: ["Agents", "Data pipelines", "Slack"]
+      tags: ["Autonomous agents", "TypeScript", "Cloudflare Workers", "ClickHouse", "Pulumi", "GCP/AWS"]
     },
     {
       dates: "2024 — 2025",
