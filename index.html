@@ -55,10 +55,10 @@
 <div data-theme="{{ theme }}" style="background-color: var(--bg); background-image: radial-gradient(760px 420px at 78% -6%, var(--glow), transparent 68%), radial-gradient(circle at 1px 1px, var(--dot) 1px, transparent 0), linear-gradient(var(--hair) 1px, transparent 1px), linear-gradient(90deg, var(--hair) 1px, transparent 1px); background-size: 100% 100%, 26px 26px, 104px 104px, 104px 104px; background-position: 0 0, 0 0, 0 0, 0 0; background-attachment: fixed, fixed, fixed, fixed; color: var(--fg); min-height: 100vh; padding: 0 clamp(20px, 5vw, 64px); transition: background-color 220ms ease, color 220ms ease">
 
   <header style="max-width: 1000px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 12px 20px; position: sticky; top: 0; background: var(--bgFade); backdrop-filter: blur(10px); z-index: 10; border-bottom: 1px solid var(--line)">
-    <button type="button" onClick="{{ goHome }}" style="font-family: 'JetBrains Mono', monospace; font-size: 15px; letter-spacing: -0.01em; color: var(--fg); background: none; border: 0; padding: 0; cursor: pointer">lbert.io</button>
+    <a href="/" onClick="{{ goHome }}" style="font-family: 'JetBrains Mono', monospace; font-size: 15px; letter-spacing: -0.01em; color: var(--fg)">lbert.io</a>
     <nav style="display: flex; align-items: center; gap: clamp(12px, 2.6vw, 26px); font-family: 'JetBrains Mono', monospace; font-size: 12.5px; letter-spacing: 0.02em; text-transform: uppercase">
-      <button type="button" onClick="{{ goHome }}" style="background: none; border: 0; padding: 0; cursor: pointer; font: inherit; letter-spacing: inherit; text-transform: inherit; color: {{ navHome }}">Projects</button>
-      <button type="button" onClick="{{ goResume }}" style="background: none; border: 0; padding: 0; cursor: pointer; font: inherit; letter-spacing: inherit; text-transform: inherit; color: {{ navResume }}">Résumé</button>
+      <a href="/" onClick="{{ goHome }}" style="font: inherit; letter-spacing: inherit; text-transform: inherit; color: {{ navHome }}">Projects</a>
+      <a href="/resume" onClick="{{ goResume }}" style="font: inherit; letter-spacing: inherit; text-transform: inherit; color: {{ navResume }}">Résumé</a>
       <a href="https://github.com/chris-albert" target="_blank" rel="noreferrer" title="GitHub" style="width: 30px; height: 30px; border-radius: 999px; border: 1px solid var(--line); color: var(--dim); display: grid; place-items: center; letter-spacing: 0; text-transform: none; font-size: 11.5px" style-hover="border-color: var(--accent); color: var(--accent)"><svg viewBox="0 0 16 16" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.42 7.42 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A7.995 7.995 0 0 0 16 8c0-4.42-3.58-8-8-8Z"></path></svg></a>
       <a href="https://www.linkedin.com/in/chris-albert-01605b97/" target="_blank" rel="noreferrer" title="LinkedIn" style="width: 30px; height: 30px; border-radius: 999px; border: 1px solid var(--line); color: var(--dim); display: grid; place-items: center; letter-spacing: 0; text-transform: none; font-size: 11.5px" style-hover="border-color: var(--accent); color: var(--accent)"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13ZM7.12 20.45H3.55V9h3.57v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"></path></svg></a>
       <button type="button" onClick="{{ toggleTheme }}" aria-label="Toggle color scheme" style="width: 30px; height: 30px; border-radius: 999px; border: 1px solid var(--line); background: none; color: var(--dim); cursor: pointer; font-family: 'JetBrains Mono', monospace; font-size: 12px; display: grid; place-items: center" style-hover="border-color: var(--accent); color: var(--accent)">{{ themeGlyph }}</button>
@@ -157,7 +157,7 @@
               <a href="mailto:chris@lbert.io" style="display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line2); color: var(--fg)" style-hover="color: var(--accent)"><span>chris@lbert.io</span><span style="color: var(--dim)">email</span></a>
               <a href="https://github.com/chris-albert" target="_blank" rel="noreferrer" style="display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line2); color: var(--fg)" style-hover="color: var(--accent)"><span>chris-albert</span><span style="color: var(--dim)">github</span></a>
               <a href="https://www.linkedin.com/in/chris-albert-01605b97/" target="_blank" rel="noreferrer" style="display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line2); color: var(--fg)" style-hover="color: var(--accent)"><span>chris-albert</span><span style="color: var(--dim)">linkedin</span></a>
-              <button type="button" onClick="{{ goResume }}" style="display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border: 0; border-bottom: 1px solid var(--line2); background: none; font: inherit; color: var(--fg); cursor: pointer" style-hover="color: var(--accent)"><span>Full résumé</span><span style="color: var(--dim)">→</span></button>
+              <a href="/resume" onClick="{{ goResume }}" style="display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line2); color: var(--fg)" style-hover="color: var(--accent)"><span>Full résumé</span><span style="color: var(--dim)">→</span></a>
             </div>
           </div>
         </section>
@@ -246,7 +246,7 @@
 
         <section style="padding: clamp(44px, 7vh, 76px) 0 clamp(48px, 8vh, 80px)">
           <div style="border-top: 1px solid var(--line); padding-top: 28px; display: flex; flex-wrap: wrap; gap: 14px; align-items: center; justify-content: space-between">
-            <p style="font-size: 16px; color: var(--muted); margin: 0">Projects and code are on the <button type="button" onClick="{{ goHome }}" style="background: none; border: 0; padding: 0; font: inherit; color: var(--accent); cursor: pointer; text-decoration: underline">projects page</button>.</p>
+            <p style="font-size: 16px; color: var(--muted); margin: 0">Projects and code are on the <a href="/" onClick="{{ goHome }}" style="text-decoration: underline">projects page</a>.</p>
             <a href="mailto:chris@lbert.io" style="font-family: 'JetBrains Mono', monospace; font-size: 13.5px; padding: 12px 18px; border-radius: 4px; background: var(--accent); color: var(--onAccent)">chris@lbert.io</a>
           </div>
         </section>
@@ -383,21 +383,45 @@ const RESUME = {
   ]
 };
 
+const PATHS = { home: "/", resume: "/resume" };
+const pageFromPath = path => path.replace(/\/+$/, "") === "/resume" ? "resume" : "home";
+// 404.html bounces unknown paths to "/?p=<path>" so GitHub Pages can serve this file.
+const initialPage = () => {
+  const p = new URLSearchParams(location.search).get("p");
+  return pageFromPath(p || location.pathname);
+};
+
 class Component extends DCLogic {
-  state = { page: "home", theme: null, at: false, copied: false, exporting: null, exportError: null };
+  state = { page: initialPage(), theme: null, at: false, copied: false, exporting: null, exportError: null };
 
   componentDidMount() {
     let saved = null;
     try { saved = localStorage.getItem("lbertio-theme"); } catch (e) {}
     if (saved === "light" || saved === "dark") this.setState({ theme: saved });
+
+    const want = PATHS[this.state.page];
+    if (location.pathname + location.search !== want) {
+      try { history.replaceState(null, "", want); } catch (e) {}
+    }
+    this.onPopState = () => {
+      this.setState({ page: pageFromPath(location.pathname) });
+      window.scrollTo({ top: 0, behavior: "instant" });
+    };
+    window.addEventListener("popstate", this.onPopState);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("popstate", this.onPopState);
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.theme !== this.props.theme) this.setState({ theme: null });
   }
 
-  goPage(page) {
+  goPage(page, e) {
+    if (e && e.preventDefault) e.preventDefault();
     if (page === this.state.page) return;
+    try { history.pushState(null, "", PATHS[page]); } catch (err) {}
     this.setState({ page });
     window.scrollTo({ top: 0, behavior: "instant" });
   }
@@ -440,8 +464,8 @@ class Component extends DCLogic {
       toggleTheme: () => this.setTheme(theme === "dark" ? "light" : "dark"),
       isHome: page === "home",
       isResume: page === "resume",
-      goHome: () => this.goPage("home"),
-      goResume: () => this.goPage("resume"),
+      goHome: e => this.goPage("home", e),
+      goResume: e => this.goPage("resume", e),
       navHome: page === "home" ? "var(--fg)" : "var(--dim)",
       navResume: page === "resume" ? "var(--fg)" : "var(--dim)",
       showAvailability: this.props.showAvailability ?? true,
