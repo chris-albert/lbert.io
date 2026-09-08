@@ -190,8 +190,13 @@
               <div style="display: grid; grid-template-columns: minmax(0, 150px) minmax(0, 1fr); gap: clamp(18px, 4vw, 44px); padding: 28px 0; border-top: 1px solid var(--line2)">
                 <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--dim); letter-spacing: 0.02em">{{ j.dates }}</div>
                 <div>
-                  <h3 style="font-size: clamp(19px, 2.2vw, 24px); font-weight: 500; letter-spacing: -0.02em; margin: 0 0 4px">{{ j.role }}</h3>
-                  <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--accent); margin-bottom: 16px">{{ j.company }}</div>
+                  <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 16px">
+                    <img src="{{ j.logo }}" alt="{{ j.company }}" width="40" height="40" style="width: 40px; height: 40px; flex: none; box-sizing: border-box; padding: 4px; border-radius: 6px; object-fit: contain; background: #fff; border: 1px solid var(--line)" />
+                    <div>
+                      <h3 style="font-size: clamp(19px, 2.2vw, 24px); font-weight: 500; letter-spacing: -0.02em; margin: 0 0 4px">{{ j.role }}</h3>
+                      <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--accent)">{{ j.company }}</div>
+                    </div>
+                  </div>
                   <ul style="margin: 0 0 16px; padding-left: 18px; display: grid; gap: 9px">
                     <sc-for list="{{ j.bullets }}" as="b" hint-placeholder-count="3">
                       <li style="font-size: 16px; line-height: 1.55; color: var(--muted); max-width: 64ch; text-wrap: pretty">{{ b }}</li>
@@ -278,6 +283,7 @@ const RESUME = {
       dates: "2025 — Present",
       role: "Staff Software Engineer",
       company: "Writer",
+      logo: "logos/writer.png",
       bullets: [
         "Built Cosmo, Writer's autonomous coding-agent platform: engineering, cloud, QA and incident agents in Slack and a web UI, with durable memory, real-time streaming and agentic code review. 885 agent-merged PRs in six months.",
         "Designed and shipped the Writer Data Platform end to end: schema registry, Python/TypeScript SDKs, and a Pub/Sub → ClickHouse → dbt pipeline across eight GCP/AWS clusters via Pulumi.",
@@ -289,6 +295,7 @@ const RESUME = {
       dates: "2024 — 2025",
       role: "Sr. Software Engineer",
       company: "SiriusXM",
+      logo: "logos/siriusxm.png",
       bullets: [
         "Contributed to and rolled out a new In-Vehicle Message service serving notifications to all Teslas.",
         "Owned features and maintenance on notification and reminder services.",
@@ -300,6 +307,7 @@ const RESUME = {
       dates: "2022 — 2024",
       role: "Sr. Software Engineer",
       company: "Disney Streaming Services",
+      logo: "logos/disney.png",
       bullets: [
         "Key contributor migrating all Disney payments to a new microservice architecture.",
         "Designed, implemented and rolled out ML inference infrastructure for payment optimizations.",
@@ -314,6 +322,7 @@ const RESUME = {
       dates: "2019 — 2022",
       role: "Principal Software Engineer",
       company: "Major League Baseball",
+      logo: "logos/mlb.png",
       bullets: [
         "Built the next-gen big data platform on Google Dataflow and BigTable.",
         "Created a JSON meta-language to facilitate API interactions (ZIO 1).",
@@ -327,6 +336,7 @@ const RESUME = {
       dates: "2017 — 2019",
       role: "Sr. Software Engineer",
       company: "Credit Karma",
+      logo: "logos/creditkarma.png",
       bullets: [
         "Built a model management application to help data scientists configure production models (Tagless Final, Cats Effect 2).",
         "Maintained and upgraded the Akka actor application powering all of CK's predictions to Cats Effect 2.",
@@ -338,6 +348,7 @@ const RESUME = {
       dates: "2015 — 2017",
       role: "Software Engineer",
       company: "Ticketfly",
+      logo: "logos/ticketfly.png",
       bullets: [
         "Created a Play/Scala library for common controller patterns — auth and request/response handling.",
         "Extracted and migrated authorization out of the monolith with Play/Scala, Slick and MySQL.",
@@ -350,6 +361,7 @@ const RESUME = {
       dates: "2011 — 2015",
       role: "Software Engineer",
       company: "Alexa Internet",
+      logo: "logos/alexa.png",
       bullets: [
         "Created the subscription and payment system on Play/Scala, MySQL and Slick; migrated from a homegrown system to Recurly.",
         "Built a framework for grading website SEO and a highly configurable editorial tool framework in Ember.js.",
@@ -361,6 +373,7 @@ const RESUME = {
       dates: "2009 — 2011",
       role: "Jr. Fullstack Software Engineer",
       company: "PS|Ship",
+      logo: "logos/psship.png",
       bullets: ["Built a shipping application in a custom JavaScript framework."],
       tags: ["JavaScript"]
     }
