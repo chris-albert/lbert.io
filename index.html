@@ -396,6 +396,12 @@ class Component extends DCLogic {
     if (prevProps.theme !== this.props.theme) this.setState({ theme: null });
   }
 
+  goPage(page) {
+    if (page === this.state.page) return;
+    this.setState({ page });
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }
+
   setTheme(t) {
     this.setState({ theme: t });
     try { localStorage.setItem("lbertio-theme", t); } catch (e) {}
@@ -434,8 +440,8 @@ class Component extends DCLogic {
       toggleTheme: () => this.setTheme(theme === "dark" ? "light" : "dark"),
       isHome: page === "home",
       isResume: page === "resume",
-      goHome: () => this.setState({ page: "home" }),
-      goResume: () => this.setState({ page: "resume" }),
+      goHome: () => this.goPage("home"),
+      goResume: () => this.goPage("resume"),
       navHome: page === "home" ? "var(--fg)" : "var(--dim)",
       navResume: page === "resume" ? "var(--fg)" : "var(--dim)",
       showAvailability: this.props.showAvailability ?? true,
