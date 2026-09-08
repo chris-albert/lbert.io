@@ -119,6 +119,14 @@
 
   // --------------------------------------------------------------------- PDF
   function pdfDocument(jsPDF, r) {
+    // jsPDF's built-in Helvetica only covers WinAnsi, so characters outside it
+    // (e.g. "→") come out as garbage and knock the rest of the line into a
+    // fallback font. Swap them for ASCII before any text reaches the document.
+    const ascii = v => typeof v === "string" ? v.replace(/→/g, "->")
+      : Array.isArray(v) ? v.map(ascii)
+      : v && typeof v === "object" ? Object.fromEntries(Object.entries(v).map(([k, x]) => [k, ascii(x)]))
+      : v;
+    r = ascii(r);
     const doc = new jsPDF({ unit: "pt", format: "letter" });
     const W = doc.internal.pageSize.getWidth();
     const H = doc.internal.pageSize.getHeight();
