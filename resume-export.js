@@ -44,7 +44,7 @@
 
   // -------------------------------------------------------------------- DOCX
   function docxDocument(docx, r) {
-    const { Document, Paragraph, TextRun, ExternalHyperlink, LevelFormat, AlignmentType, BorderStyle, TabStopType } = docx;
+    const { Document, Paragraph, TextRun, ExternalHyperlink, LevelFormat, AlignmentType, BorderStyle, TabStopType, Tab } = docx;
     // US Letter in twips (1/1440 in), 0.75in margins.
     const PAGE_WIDTH = 12240, MARGIN = 1080, TEXT_WIDTH = PAGE_WIDTH - MARGIN * 2;
 
@@ -70,7 +70,7 @@
         children: [
           new TextRun({ text: j.role, bold: true, size: 23 }),
           new TextRun({ text: "   " + j.company, color: ACCENT }),
-          new TextRun({ text: "\t" + j.dates, color: MUTED })
+          new TextRun({ children: [new Tab(), j.dates], color: MUTED })
         ],
         tabStops: [{ type: TabStopType.RIGHT, position: TEXT_WIDTH }],
         spacing: { before: 220, after: 80 }
